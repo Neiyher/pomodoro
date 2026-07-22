@@ -3,12 +3,16 @@ type ControlsProps = {
     setIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
     setTimeLeft: React.Dispatch<React.SetStateAction<number>>;
     WORK_TIME: number
+    setMode: React.Dispatch<React.SetStateAction<Mode>>;
 };
 
-export default function Controls({ isRunning, setIsRunning, setTimeLeft, WORK_TIME }: ControlsProps){
+import type { Mode } from "../types/Mode";
+
+export default function Controls({ isRunning, setIsRunning, setTimeLeft, WORK_TIME, setMode }: ControlsProps){
     const handleReset = () => {
     setIsRunning(false);
     setTimeLeft(WORK_TIME);
+    setMode("work")
 };
 
     return(
