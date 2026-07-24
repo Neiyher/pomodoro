@@ -5,7 +5,12 @@ import Controls from './components/Controls'
 import Header from './components/Header'
 import Timer from './components/Timer'
 
+import Sidebar from './components/Sidebar/Sidebar'
+
 import type { Mode } from "./types/Mode";
+import type { Pomodoro } from './types/Pomodoro'
+
+import { pomodoros } from './data/Pomodoros'
 
 const WORK_TIME = 0.1 * 60;
 const BREAK_TIME = 0.1 * 60;
@@ -13,6 +18,8 @@ const LONG_BREAK_TIME = 0.1 * 60;
 
 function App() {
   /* type Mode = "work" | "break" | "longBreak"; */
+
+  const [pomodoros, setPomodoros] = useState<Pomodoro[]>([]);
 
   const [mode, setMode] = useState<Mode>("work");
 
@@ -76,6 +83,7 @@ function App() {
         WORK_TIME ={WORK_TIME}
         setMode={setMode}
         />
+        <Sidebar/>
     </>
   )
 }
