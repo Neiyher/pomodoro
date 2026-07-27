@@ -3,7 +3,7 @@ import type { Pomodoro } from "../types/Pomodoro"
 export const pomodoros: Pomodoro[] = [
     {
         id: 1,
-        title: "hola",
+        title: "Estudiar",
         workTime: 25,
         breakTime: 5,
         longBreakTime: 15,
@@ -11,7 +11,7 @@ export const pomodoros: Pomodoro[] = [
     },
     {
         id: 2,
-        title: "hola2",
+        title: "Limpiar",
         workTime: 2,
         breakTime: 45,
         longBreakTime: 15,
@@ -19,7 +19,7 @@ export const pomodoros: Pomodoro[] = [
     },
     {
         id: 3,
-        title: "hola3",
+        title: "Ejercicio",
         workTime: 20,
         breakTime: 1,
         longBreakTime: 5,
