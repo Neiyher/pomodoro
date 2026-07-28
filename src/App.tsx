@@ -28,7 +28,7 @@ function App() {
   const [isRunning, setIsRunning] = useState(false)
 
   const [completedPomodoros, setCompletedPomodoros] = useState(0);
-  const [selectedPomodoro, setSelectedPomodoro] = useState<Pomodoro | null>(null);
+  const [selectedPomodoro, setSelectedPomodoro] = useState<Pomodoro>(pomodoros[0]);
 /* Cuando el pomodoro llega a cero esta funcion se activa. */
   function handleSessionEnd() {
     setIsRunning(false)
@@ -91,10 +91,6 @@ function App() {
         setSelectedPomodoro={setSelectedPomodoro}/>
         <PomodoroPlayer
         pomodoro={selectedPomodoro}
-        setMode={setMode}
-        setTimeLeft={setTimeLeft}
-        setIsRunning={setIsRunning}
-        setCompletedPomodoros={setCompletedPomodoros}
         />
     </>
   )

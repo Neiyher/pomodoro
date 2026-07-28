@@ -2,7 +2,7 @@ import PomodoroCard from "./PomodoroCard";
 import type { Pomodoro } from "../../types/Pomodoro";
 
 type SidebarPorps = {
-    setSelectedPomodoro: React.Dispatch<React.SetStateAction<Pomodoro|null>>
+    setSelectedPomodoro: React.Dispatch<React.SetStateAction<Pomodoro>>
     pomodoros:Pomodoro[];
 }
 
