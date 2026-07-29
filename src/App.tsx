@@ -1,5 +1,5 @@
 import './App.css'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import { pomodoros as initialPomodoros } from "./data/Pomodoros";
 

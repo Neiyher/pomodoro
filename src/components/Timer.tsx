@@ -1,3 +1,5 @@
+import "./Timer.css"
+
 type TimerProps = {
     timeLeft: number
 }
@@ -7,6 +9,6 @@ export default function Timer({ timeLeft }: TimerProps){
     const seconds = timeLeft % 60;
 
     return(
-        <div>{minutes.toString().padStart(2, "0")}:{seconds.toString().padStart(2, "0")}</div>
+        <div className="timer">{minutes.toString().padStart(2, "0")}:{seconds.toString().padStart(2, "0")}</div>
     )
 }

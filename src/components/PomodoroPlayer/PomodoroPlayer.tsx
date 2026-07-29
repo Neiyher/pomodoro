@@ -2,8 +2,12 @@ import { useState, useEffect } from 'react'
 import type { Pomodoro } from "../../types/Pomodoro";
 import type { Mode } from "../../types/Mode"
 
-import Controls from '../Controls';
 import Timer from '../Timer';
+import ButtonPlay from '../Button/ButtonPlay';
+import ButtonReboot from '../Button/ButtonReboot';
+
+import work from "../../assets/pj/work.gif"
+import pause from "../../assets/pj/pause.jpg"
 
 type PomodoroPlayerPorps = {
     pomodoro: Pomodoro;
@@ -16,6 +20,17 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
     const [isRunning, setIsRunning] = useState(false)
 
     const [completedPomodoros, setCompletedPomodoros] = useState(0);
+
+    function onToggle(){
+        setIsRunning(prev => !prev)
+    }
+
+    function handleReset(){
+        setIsRunning(false);
+        setTimeLeft(pomodoro.workTime);
+        setMode("work");
+        setCompletedPomodoros(0)
+    }
 
     /* Cuando el pomodoro llega a cero esta funcion se activa. */
     function handleSessionEnd() {
@@ -70,15 +85,30 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
 
     return(
         <div>
-            <h1>{pomodoro.title}</h1>
+            <div>
+                <h1>{pomodoro.title}</h1>
+                <ButtonReboot handleReset={handleReset}/>
+            </div>
             <Timer timeLeft={timeLeft}/>
-            <Controls 
-                    setIsRunning={setIsRunning} 
-                    isRunning={isRunning} 
-                    setTimeLeft={setTimeLeft}
-                    WORK_TIME ={pomodoro.workTime}
-                    setMode={setMode}
-                    />
+            <div>
+                {
+                    isRunning?(
+                        <img src={work} alt="" />
+                    ):(
+                        <img src={pause} alt="" />
+                    )
+                }
+            </div>
+            <div>
+                {mode}
+            </div>
+            <ButtonPlay 
+                onToggle={onToggle}
+                isRunning={isRunning}
+            />     
+            <div>
+                {completedPomodoros}
+            </div>
         </div>    
     )
 }
