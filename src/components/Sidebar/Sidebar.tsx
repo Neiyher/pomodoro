@@ -1,4 +1,6 @@
+import "./Sidebar.css"
 import PomodoroCard from "./PomodoroCard";
+import ButtonCreate from "../Button/ButtonCreate";
 import type { Pomodoro } from "../../types/Pomodoro";
 
 type SidebarPorps = {
@@ -18,6 +20,7 @@ export default function Sidebar({pomodoros,setSelectedPomodoro}:SidebarPorps){
                 pomodoro={pomo} />
             ))
         }
+        <ButtonCreate/>
         </div>
     )
 }

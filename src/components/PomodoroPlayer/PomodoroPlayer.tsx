@@ -1,3 +1,4 @@
+import "./PomodoroPlayer.css"
 import { useState, useEffect } from 'react'
 import type { Pomodoro } from "../../types/Pomodoro";
 import type { Mode } from "../../types/Mode"
@@ -35,11 +36,11 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
     /* Cuando el pomodoro llega a cero esta funcion se activa. */
     function handleSessionEnd() {
         setIsRunning(false)
-        alert("🔔Suena la Alarma🔔")
+        console.log("🔔Suena la Alarma🔔")
         if(mode==='work'){
         const nextPomodoros = completedPomodoros + 1;
         setCompletedPomodoros(nextPomodoros)
-        if(nextPomodoros===4){
+        if(nextPomodoros===pomodoro.completedPomodoros){
             setMode("longBreak")
             setTimeLeft(pomodoro.longBreakTime)
             setCompletedPomodoros(0);
@@ -84,7 +85,7 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
     }, [timeLeft]);
 
     return(
-        <div>
+        <div className='pomoPlayer'>
             <div>
                 <h1>{pomodoro.title}</h1>
                 <ButtonReboot handleReset={handleReset}/>

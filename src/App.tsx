@@ -19,12 +19,13 @@ function App() {
   return (
     <>
       <Header/>
-      <PomodoroPlayer
-        pomodoro={selectedPomodoro}
-      />
-      <Sidebar 
-        pomodoros={pomodoros}
-        setSelectedPomodoro={setSelectedPomodoro}/>     
+      <div className='appContainer'>
+        <Sidebar 
+          pomodoros={pomodoros}
+          setSelectedPomodoro={setSelectedPomodoro}/>   
+        <PomodoroPlayer
+          pomodoro={selectedPomodoro}/>
+      </div>  
     </>
   )
 }

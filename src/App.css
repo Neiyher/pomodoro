@@ -1,1 +1,5 @@
-
+.appContainer{
+    border: solid 1px cornflowerblue;
+    display: flex;
+    justify-content: space-between;
+}
