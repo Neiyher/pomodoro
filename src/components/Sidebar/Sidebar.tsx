@@ -6,9 +6,10 @@ import type { Pomodoro } from "../../types/Pomodoro";
 type SidebarPorps = {
     setSelectedPomodoro: React.Dispatch<React.SetStateAction<Pomodoro>>
     pomodoros:Pomodoro[];
+    setIsCreateModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Sidebar({pomodoros,setSelectedPomodoro}:SidebarPorps){
+export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalOpen}:SidebarPorps){
 
     return(
         <div className="sidebarContainer">
@@ -20,7 +21,8 @@ export default function Sidebar({pomodoros,setSelectedPomodoro}:SidebarPorps){
                 pomodoro={pomo} />
             ))
         }
-        <ButtonCreate/>
+        <ButtonCreate
+            setIsCreateModalOpen={setIsCreateModalOpen}/> 
         </div>
     )
 }
