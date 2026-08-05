@@ -19,6 +19,11 @@ function App() {
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
+  function handleCreatePomodoro(newPomodoro: Pomodoro) {
+    setPomodoros((prev) => [...prev, newPomodoro]);
+    setSelectedPomodoro(newPomodoro);
+  }
+
   return (
     <>
       <Header/>
@@ -32,7 +37,8 @@ function App() {
 
         {isCreateModalOpen && (
           <CreatePomodoroModal
-          setIsCreateModalOpen={setIsCreateModalOpen}/>
+          setIsCreateModalOpen={setIsCreateModalOpen}
+          onCreatePomodoro={handleCreatePomodoro}/>
         )}
       </div>  
     </>

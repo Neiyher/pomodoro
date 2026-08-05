@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import type { Pomodoro } from '../../types/Pomodoro';
 
 type CreatePomodoroModalProps={
     setIsCreateModalOpen:React.Dispatch<React.SetStateAction<boolean>>;
+    onCreatePomodoro: (pomodoro: Pomodoro) => void;
 }
 
-export default function CreatePomodoroModal({setIsCreateModalOpen}: CreatePomodoroModalProps) {
+export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomodoro}: CreatePomodoroModalProps) {
 
     const [title, setTitle] = useState("");
     const [workTime, setWorkTime] = useState(25);
@@ -21,6 +23,21 @@ export default function CreatePomodoroModal({setIsCreateModalOpen}: CreatePomodo
             breakTime,
             longBreakTime,
         });
+        const newPomodoro = {
+            id:Date.now(),
+            title:title,
+            workTime:workTime,
+            breakTime:breakTime,
+            longBreakTime:longBreakTime,
+            completedPomodoros:0,
+            check: false
+        }
+        onCreatePomodoro(newPomodoro);
+        setIsCreateModalOpen(false);
+        setTitle("");
+        setWorkTime(25);
+        setBreakTime(5);
+        setLongBreakTime(15);
     }
 
     return (
