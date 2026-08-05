@@ -13,16 +13,20 @@ export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalO
 
     return(
         <div className="sidebarContainer">
-        {
-            pomodoros.map((pomo)=>(
-                <PomodoroCard 
-                onSelect={setSelectedPomodoro}
-                key={pomo.id}
-                pomodoro={pomo} />
-            ))
-        }
-        <ButtonCreate
-            setIsCreateModalOpen={setIsCreateModalOpen}/> 
+            <h2 className="sidebarTitle">
+                🍅 Mis Pomodoros
+            </h2>
+
+            <div className="sidebarList">
+                {pomodoros.map((pomo) => (
+                <PomodoroCard
+                    key={pomo.id}
+                    pomodoro={pomo}
+                    onSelect={setSelectedPomodoro}
+                />
+                ))}
+            </div>
+            <ButtonCreate setIsCreateModalOpen={setIsCreateModalOpen}/>
         </div>
     )
 }

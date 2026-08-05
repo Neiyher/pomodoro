@@ -1,5 +1,13 @@
-.appContainer{
-    border: solid 1px cornflowerblue;
+.app {
+    min-height: 100vh;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+}
+.appContainer {
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: 300px 1fr;
+
+    overflow: hidden;
 }

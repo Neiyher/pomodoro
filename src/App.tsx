@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { pomodoros as initialPomodoros } from "./data/Pomodoros";
 
-import Header from './components/Header'
+import Header from './components/Header/Header'
 import Sidebar from './components/Sidebar/Sidebar'
 import PomodoroPlayer from './components/PomodoroPlayer/PomodoroPlayer';
 import CreatePomodoroModal from './components/CreatePomodoroModal/CreatePomodoroModal'
@@ -25,9 +25,9 @@ function App() {
   }
 
   return (
-    <>
+    <div className='app'>
       <Header/>
-      <div className='appContainer'>
+      <main className='appContainer'>
         <Sidebar 
           pomodoros={pomodoros}
           setSelectedPomodoro={setSelectedPomodoro}
@@ -40,8 +40,8 @@ function App() {
           setIsCreateModalOpen={setIsCreateModalOpen}
           onCreatePomodoro={handleCreatePomodoro}/>
         )}
-      </div>  
-    </>
+      </main>  
+    </div>
   )
 }
 

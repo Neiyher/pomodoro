@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import type { Pomodoro } from "../../types/Pomodoro";
 import type { Mode } from "../../types/Mode"
 
-import Timer from '../Timer';
+import Timer from "../Timer/Timer";
 import ButtonPlay from '../Button/ButtonPlay';
 import ButtonReboot from '../Button/ButtonReboot';
 
