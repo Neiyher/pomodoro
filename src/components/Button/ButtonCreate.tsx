@@ -1,3 +1,5 @@
+import "./Button.css"
+
 type ButtonCreateProps={
     setIsCreateModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -8,6 +10,6 @@ export default function ButtonCreate({setIsCreateModalOpen}:ButtonCreateProps){
         setIsCreateModalOpen(true)
     }
     return(
-        <button onClick={pom}>+ Nuevo Pomodoro</button>
+        <button onClick={pom} className="button button--secondary">+ Nuevo Pomodoro</button>
     )
 }

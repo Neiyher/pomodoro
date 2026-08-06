@@ -1,3 +1,5 @@
+import "./Button.css"
+
 type ButtonPlayProps = {
     isRunning : boolean;
     onToggle: () => void;
@@ -5,10 +7,8 @@ type ButtonPlayProps = {
 
 export default function ButtonPlay ({isRunning,onToggle}:ButtonPlayProps){
     return(
-        <div>
-            <button onClick={onToggle}>
+            <button onClick={onToggle} className="button button--primary">
                 {isRunning ? "Pausar" : "Iniciar"}
             </button>
-        </div>
     )
 }
