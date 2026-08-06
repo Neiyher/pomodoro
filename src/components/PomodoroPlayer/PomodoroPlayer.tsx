@@ -86,30 +86,33 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
 
     return(
         <div className='pomoPlayer'>
-            <div>
+            <header className="playerHeader">
                 <h1>{pomodoro.title}</h1>
                 <ButtonReboot handleReset={handleReset}/>
-            </div>
-            <Timer timeLeft={timeLeft}/>
-            <div>
-                {
+            </header>
+            <main className="playerContent">
+                <Timer timeLeft={timeLeft}/>
+                <div>
+                {mode}
+                </div>
+                <div className="playerGif">
+                    {
                     isRunning?(
                         <img src={work} alt="" />
                     ):(
                         <img src={pause} alt="" />
                     )
-                }
-            </div>
-            <div>
-                {mode}
-            </div>
-            <ButtonPlay 
-                onToggle={onToggle}
-                isRunning={isRunning}
-            />     
-            <div>
-                {completedPomodoros}
-            </div>
+                    }
+                </div>
+                <div className="playerControls">
+                    <ButtonPlay 
+                    onToggle={onToggle}
+                    isRunning={isRunning}/> 
+                </div>
+                <div className="playerProgress">
+                    {completedPomodoros}
+                </div>
+            </main>
         </div>    
     )
 }

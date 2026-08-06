@@ -1,3 +1,11 @@
-.timer{
-    font-size: 80px;
+.timer {
+    font-size: 5.5rem;
+    font-weight: 700;
+
+    letter-spacing: -4px;
+    line-height: 1;
+
+    color: var(--color-text);
+
+    user-select: none;
 }
