@@ -14,6 +14,7 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
     const [breakTime, setBreakTime] = useState(5);
     const [longBreakTime, setLongBreakTime] = useState(15);
     const [targetPomodoros, setTargetPomodoros] = useState(4);
+    const isTitleValid = title.trim() !== "";
     function handleClose() {
         setIsCreateModalOpen(false);
     }
@@ -52,6 +53,7 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
                     <input 
                     id="title"
                     type="text"
+                    placeholder="Ej: Leer"
                     value={title}
                     onChange={(e) => {setTitle(e.target.value)}}/>
                 </div>
@@ -62,6 +64,7 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
                         <input 
                             id="workTime"
                             type="number"
+                            min={0}
                             value={workTime}
                             onChange={(e) => setWorkTime(Number(e.target.value))}/>
                     </div>
@@ -71,6 +74,7 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
                         <input 
                             id="breakTime"
                             type="number"
+                            min={0}
                             value={breakTime}
                             onChange={(e) => {setBreakTime(Number(e.target.value))}}/>
                     </div>
@@ -79,6 +83,7 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
                         <input 
                             id="longBreakTime"
                             type="number"
+                            min={0}
                             value={longBreakTime}
                             onChange={(e) => {setLongBreakTime(Number(e.target.value))}}/>
                     </div>
@@ -87,6 +92,7 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
                         <input 
                             id="targetPomodoros"
                             type="number"
+                            min={0}
                             value={targetPomodoros}
                             onChange={(e) => {setTargetPomodoros(Number(e.target.value))}}/>
                     </div>
@@ -94,7 +100,7 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
                 <div className="modalActions">
                     <button onClick={handleClose} className="button button--secondary">Cancelar</button>
 
-                    <button onClick={save} className="button button--primary">Guardar</button>
+                    <button onClick={save} className="button button--primary" disabled={!isTitleValid}>Guardar</button>
                 </div>
             </div>
         </div> 
