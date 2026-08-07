@@ -12,7 +12,7 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
     const [workTime, setWorkTime] = useState(25);
     const [breakTime, setBreakTime] = useState(5);
     const [longBreakTime, setLongBreakTime] = useState(15);
-
+    const [targetPomodoros, setTargetPomodoros] = useState(4);
     function handleClose() {
         setIsCreateModalOpen(false);
     }
@@ -30,7 +30,8 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
             breakTime:breakTime,
             longBreakTime:longBreakTime,
             completedPomodoros:0,
-            check: false
+            check: false,
+            targetPomodoros:targetPomodoros
         }
         onCreatePomodoro(newPomodoro);
         setIsCreateModalOpen(false);
@@ -38,6 +39,7 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
         setWorkTime(25);
         setBreakTime(5);
         setLongBreakTime(15);
+        setTargetPomodoros(4);
     }
 
     return (
@@ -59,6 +61,10 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
                 type="number"
                 value={longBreakTime}
                 onChange={(e) => {setLongBreakTime(Number(e.target.value))}}/>
+            <input 
+                type="number"
+                value={targetPomodoros}
+                onChange={(e) => {setTargetPomodoros(Number(e.target.value))}}/>
             <button onClick={save}>Save</button>
             <button onClick={handleClose}>X</button>
         </div>

@@ -19,8 +19,8 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
     
     const [timeLeft, setTimeLeft] = useState(pomodoro.workTime)
     const [isRunning, setIsRunning] = useState(false)
-
     const [completedPomodoros, setCompletedPomodoros] = useState(0);
+    const [sessionFinished, setSessionFinished] = useState(false);
 
     function onToggle(){
         setIsRunning(prev => !prev)
@@ -31,34 +31,64 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
         setTimeLeft(pomodoro.workTime);
         setMode("work");
         setCompletedPomodoros(0)
+        setSessionFinished(false)
     }
 
     /* Cuando el pomodoro llega a cero esta funcion se activa. */
     function handleSessionEnd() {
-        setIsRunning(false)
-        console.log("🔔Suena la Alarma🔔")
-        if(mode==='work'){
+    setIsRunning(false);
+    console.log("🔔 Suena la alarma 🔔");
+
+    if (mode === "work") {
         const nextPomodoros = completedPomodoros + 1;
-        setCompletedPomodoros(nextPomodoros)
-        if(nextPomodoros===pomodoro.completedPomodoros){
-            setMode("longBreak")
-            setTimeLeft(pomodoro.longBreakTime)
-            setCompletedPomodoros(0);
-        }else {
-            setMode("break")
-            setTimeLeft(pomodoro.breakTime)
+        setCompletedPomodoros(nextPomodoros);
+
+        // ¿Se completó la cantidad de sesiones?
+        if (nextPomodoros === pomodoro.targetPomodoros) {
+
+            // ¿Existe descanso largo?
+            if (pomodoro.longBreakTime > 0) {
+                setMode("longBreak");
+                setTimeLeft(pomodoro.longBreakTime);
+            } else {
+                console.log("✅ Sesión completada");
+                // Aquí más adelante marcaremos el pomodoro como check = true
+                setSessionFinished(true)
+            }
+
+            return;
         }
-        }else{
-        setMode('work')
-        setTimeLeft(pomodoro.workTime)
+
+        // Todavía faltan sesiones
+        if (pomodoro.breakTime > 0) {
+            setMode("break");
+            setTimeLeft(pomodoro.breakTime);
+        } else {
+            // No hay descanso, continúa inmediatamente
+            setMode("work");
+            setTimeLeft(pomodoro.workTime);
         }
+
+    } else if (mode === "break") {
+
+        // Después del descanso corto siempre vuelve al trabajo
+        setMode("work");
+        setTimeLeft(pomodoro.workTime);
+
+    } else if (mode === "longBreak") {
+
+        console.log("✅ Sesión completada");
+        // Aquí también podremos marcar check = true
+        setSessionFinished(true)
     }
+}
     /* Este useEffect verifica cuando se cambia de pomodoro. */
     useEffect(() => {
         setMode("work")
         setTimeLeft(pomodoro.workTime)
         setIsRunning(false)
         setCompletedPomodoros(0)
+        setSessionFinished(false);
     }, [pomodoro]);
 
     /* Este useEffect es el que confirma que Isrunung sea true para ir mermando tiempo */
@@ -105,12 +135,18 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
                     }
                 </div>
                 <div className="playerControls">
-                    <ButtonPlay 
-                    onToggle={onToggle}
-                    isRunning={isRunning}/> 
+                    {
+                    sessionFinished?(
+                        <ButtonReboot handleReset={handleReset}/>
+                    ):(
+                        <ButtonPlay 
+                        onToggle={onToggle}
+                        isRunning={isRunning}/> 
+                    )
+                    }
                 </div>
                 <div className="playerProgress">
-                    {completedPomodoros}
+                    {completedPomodoros}/{pomodoro.targetPomodoros}
                 </div>
             </main>
         </div>    
