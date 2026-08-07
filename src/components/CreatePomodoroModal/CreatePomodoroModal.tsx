@@ -1,3 +1,4 @@
+import './CreatePomodoroModal.css'
 import { useState } from 'react'
 import type { Pomodoro } from '../../types/Pomodoro';
 
@@ -43,30 +44,59 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
     }
 
     return (
-        <div>
-            <h2>Crear Pomodoro</h2>
-            <input 
-                type="text"
-                value={title}
-                onChange={(e) => {setTitle(e.target.value)}}/>
-            <input 
-                type="number"
-                value={workTime}
-                onChange={(e) => setWorkTime(Number(e.target.value))}/>
-            <input 
-                type="number"
-                value={breakTime}
-                onChange={(e) => {setBreakTime(Number(e.target.value))}}/>
-            <input 
-                type="number"
-                value={longBreakTime}
-                onChange={(e) => {setLongBreakTime(Number(e.target.value))}}/>
-            <input 
-                type="number"
-                value={targetPomodoros}
-                onChange={(e) => {setTargetPomodoros(Number(e.target.value))}}/>
-            <button onClick={save}>Save</button>
-            <button onClick={handleClose}>X</button>
-        </div>
+        <div className="modalOverlay">
+            <div className='modal'>
+                <h2>Crear Pomodoro</h2>
+                <div className="formGroup">
+                    <label htmlFor="title">Título</label>
+                    <input 
+                    id="title"
+                    type="text"
+                    value={title}
+                    onChange={(e) => {setTitle(e.target.value)}}/>
+                </div>
+
+                <div className="formContent">
+                    <div className="formGroup">
+                        <label htmlFor="workTime">Trabajo (min)</label>
+                        <input 
+                            id="workTime"
+                            type="number"
+                            value={workTime}
+                            onChange={(e) => setWorkTime(Number(e.target.value))}/>
+                    </div>
+
+                    <div className="formGroup">
+                        <label htmlFor="breakTime">Descanso corto (min)</label>
+                        <input 
+                            id="breakTime"
+                            type="number"
+                            value={breakTime}
+                            onChange={(e) => {setBreakTime(Number(e.target.value))}}/>
+                    </div>
+                    <div className="formGroup">
+                        <label htmlFor="longBreakTime">Descanso Largo (min)</label>
+                        <input 
+                            id="longBreakTime"
+                            type="number"
+                            value={longBreakTime}
+                            onChange={(e) => {setLongBreakTime(Number(e.target.value))}}/>
+                    </div>
+                    <div className="formGroup">
+                        <label htmlFor="targetPomodoros">sesiones </label>
+                        <input 
+                            id="targetPomodoros"
+                            type="number"
+                            value={targetPomodoros}
+                            onChange={(e) => {setTargetPomodoros(Number(e.target.value))}}/>
+                    </div>
+                </div>
+                <div className="modalActions">
+                    <button onClick={handleClose} className="button button--secondary">Cancelar</button>
+
+                    <button onClick={save} className="button button--primary">Guardar</button>
+                </div>
+            </div>
+        </div> 
     );
 }
