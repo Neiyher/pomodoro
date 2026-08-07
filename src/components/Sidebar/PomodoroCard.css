@@ -1,0 +1,38 @@
+.pomoCard {
+    display: flex;
+    flex-direction: column;
+
+    gap: .5rem;
+
+    padding: 1rem;
+
+    border-radius: var(--radius-md);
+
+    background: var(--color-bg);
+
+    border: 1px solid var(--color-border);
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+.pomoCard:hover {
+    border-color: var(--color-primary);
+
+    transform: translateY(-2px);
+}
+.pomoCard h2 {
+    font-size: 1rem;
+
+    margin: 0;
+
+    color: var(--color-text);
+}
+.pomoCard p {
+    font-size: .9rem;
+
+    color: var(--color-text-light);
+}
+.sidebarList {
+    gap: 1rem;
+}

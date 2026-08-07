@@ -1,20 +1,23 @@
+import "./PomodoroCard.css"
 import type { Pomodoro } from "../../types/Pomodoro";
-type PomoCardPorps = {
+type PomoCardProps = {
     pomodoro: Pomodoro
     onSelect: (pomodoro: Pomodoro) => void;
 }
 
 
-export default function PomodoroCard({pomodoro,onSelect}:PomoCardPorps){
+export default function PomodoroCard({ pomodoro, onSelect }: PomoCardProps) {
 
-    return(
-        <div className="pomo" onClick={()=>onSelect(pomodoro)}>
-                <h2>{pomodoro.title}</h2>
-                <div>
-                    <span>Work: {pomodoro.workTime}</span>
-                    <span>Break: {pomodoro.breakTime}</span>
-                    <span>LongBreak: {pomodoro.longBreakTime}</span>
-                </div>
-            </div>
-    )
+    const minutes = Math.floor(pomodoro.workTime / 60);
+
+    return (
+        <div
+            className="pomoCard"
+            onClick={() => onSelect(pomodoro)}
+        >
+            <h2>{pomodoro.title}</h2>
+
+            <p>{minutes} min</p>
+        </div>
+    );
 }
