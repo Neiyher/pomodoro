@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { pomodoros as initialPomodoros } from "./data/Pomodoros";
 
@@ -13,7 +13,10 @@ import type { Pomodoro } from './types/Pomodoro'
 
 function App() {
 
-  const [pomodoros, setPomodoros] = useState<Pomodoro[]>(initialPomodoros);
+  const [pomodoros, setPomodoros] = useState<Pomodoro[]>(()=>{
+    const datos = localStorage.getItem("pomodoros");
+    return datos ? JSON.parse(datos) : initialPomodoros
+  });
 
   const [selectedPomodoro, setSelectedPomodoro] = useState<Pomodoro>(pomodoros[0]);
 
@@ -23,6 +26,10 @@ function App() {
     setPomodoros((prev) => [...prev, newPomodoro]);
     setSelectedPomodoro(newPomodoro);
   }
+  useEffect(() => {
+    const datos = JSON.stringify(pomodoros);
+    localStorage.setItem("pomodoros",datos)
+  }, [pomodoros]);
 
   return (
     <div className='app'>
