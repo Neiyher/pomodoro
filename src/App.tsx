@@ -22,6 +22,17 @@ function App() {
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
+  const defaultPomodoro: Pomodoro = {
+    id: Date.now(),
+    title: "Pomodoro clásico",
+    workTime: 25,
+    breakTime: 5,
+    longBreakTime: 15,
+    completedPomodoros: 0,
+    check: false,
+    targetPomodoros: 4
+}
+
   function handleCreatePomodoro(newPomodoro: Pomodoro) {
     setPomodoros((prev) => [...prev, newPomodoro]);
     setSelectedPomodoro(newPomodoro);
@@ -31,6 +42,30 @@ function App() {
     localStorage.setItem("pomodoros",datos)
   }, [pomodoros]);
 
+  /* function handleDeletePomodoro(id: number) {
+    console.log("elimnando")
+    const nuevosPomodoros = pomodoros.filter(
+    pomo => pomo.id !== id);
+    setPomodoros(nuevosPomodoros)
+  } */
+
+  function handleDeletePomodoro(id: number) {
+    const nuevosPomodoros = pomodoros.filter(
+        pomo => pomo.id !== id
+    );
+
+    if (nuevosPomodoros.length === 0) {
+        setPomodoros([defaultPomodoro]);
+        setSelectedPomodoro(defaultPomodoro);
+    } else {
+        if (selectedPomodoro.id === id) {
+            setSelectedPomodoro(nuevosPomodoros[0]);
+        }
+
+        setPomodoros(nuevosPomodoros);
+    }
+  }
+
   return (
     <div className='app'>
       <Header/>
@@ -38,7 +73,8 @@ function App() {
         <Sidebar 
           pomodoros={pomodoros}
           setSelectedPomodoro={setSelectedPomodoro}
-          setIsCreateModalOpen={setIsCreateModalOpen}/>   
+          setIsCreateModalOpen={setIsCreateModalOpen}
+          onDeletePomodoro={handleDeletePomodoro}/>   
         <PomodoroPlayer
           pomodoro={selectedPomodoro}/>
 

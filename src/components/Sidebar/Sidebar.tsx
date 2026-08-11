@@ -7,9 +7,10 @@ type SidebarPorps = {
     setSelectedPomodoro: React.Dispatch<React.SetStateAction<Pomodoro>>
     pomodoros:Pomodoro[];
     setIsCreateModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    onDeletePomodoro: (id: number) => void;
 }
 
-export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalOpen}:SidebarPorps){
+export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalOpen, onDeletePomodoro}:SidebarPorps){
 
     return(
         <div className="sidebarContainer">
@@ -23,6 +24,7 @@ export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalO
                     key={pomo.id}
                     pomodoro={pomo}
                     onSelect={setSelectedPomodoro}
+                    onDeletePomodoro={onDeletePomodoro}
                 />
                 ))}
             </div>
