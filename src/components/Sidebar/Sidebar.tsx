@@ -1,6 +1,7 @@
 import "./Sidebar.css"
 import PomodoroCard from "./PomodoroCard";
 import ButtonCreate from "../Button/ButtonCreate";
+import ButtonEdit from "../Button/ButtonEdit";
 import type { Pomodoro } from "../../types/Pomodoro";
 
 type SidebarPorps = {
@@ -8,9 +9,12 @@ type SidebarPorps = {
     pomodoros:Pomodoro[];
     setIsCreateModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
     onDeletePomodoro: (id: number) => void;
+    isEditMode: boolean;
+    setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+    setEditingPomodoro: React.Dispatch<React.SetStateAction<Pomodoro | null>>
 }
 
-export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalOpen, onDeletePomodoro}:SidebarPorps){
+export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalOpen, onDeletePomodoro, setIsEditMode, isEditMode, setEditingPomodoro}:SidebarPorps){
 
     return(
         <div className="sidebarContainer">
@@ -25,10 +29,12 @@ export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalO
                     pomodoro={pomo}
                     onSelect={setSelectedPomodoro}
                     onDeletePomodoro={onDeletePomodoro}
+                    isEditMode={isEditMode}
                 />
                 ))}
             </div>
             <ButtonCreate setIsCreateModalOpen={setIsCreateModalOpen}/>
+            <ButtonEdit setIsEditMode={setIsEditMode}/>
         </div>
     )
 }

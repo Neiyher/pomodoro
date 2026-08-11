@@ -17,11 +17,10 @@ function App() {
     const datos = localStorage.getItem("pomodoros");
     return datos ? JSON.parse(datos) : initialPomodoros
   });
-
   const [selectedPomodoro, setSelectedPomodoro] = useState<Pomodoro>(pomodoros[0]);
-
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [editingPomodoro, setEditingPomodoro] = useState<Pomodoro | null>(null);
   const defaultPomodoro: Pomodoro = {
     id: Date.now(),
     title: "Pomodoro clásico",
@@ -61,7 +60,6 @@ function App() {
         if (selectedPomodoro.id === id) {
             setSelectedPomodoro(nuevosPomodoros[0]);
         }
-
         setPomodoros(nuevosPomodoros);
     }
   }
@@ -74,7 +72,10 @@ function App() {
           pomodoros={pomodoros}
           setSelectedPomodoro={setSelectedPomodoro}
           setIsCreateModalOpen={setIsCreateModalOpen}
-          onDeletePomodoro={handleDeletePomodoro}/>   
+          onDeletePomodoro={handleDeletePomodoro}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
+          setEditingPomodoro={setEditingPomodoro}/>   
         <PomodoroPlayer
           pomodoro={selectedPomodoro}/>
 
