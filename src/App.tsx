@@ -64,6 +64,11 @@ function App() {
     }
   }
 
+  function handleEditPomodoro(pomodoro: Pomodoro) {
+    setEditingPomodoro(pomodoro);
+    setIsCreateModalOpen(true);
+  }
+
   return (
     <div className='app'>
       <Header/>
@@ -75,14 +80,15 @@ function App() {
           onDeletePomodoro={handleDeletePomodoro}
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
-          setEditingPomodoro={setEditingPomodoro}/>   
+          onEditPomodoro={handleEditPomodoro}/>   
         <PomodoroPlayer
           pomodoro={selectedPomodoro}/>
 
         {isCreateModalOpen && (
           <CreatePomodoroModal
           setIsCreateModalOpen={setIsCreateModalOpen}
-          onCreatePomodoro={handleCreatePomodoro}/>
+          onCreatePomodoro={handleCreatePomodoro}
+          editingPomodoro={editingPomodoro}/>
         )}
       </main>  
     </div>

@@ -1,13 +1,14 @@
 import './CreatePomodoroModal.css'
-import { useState } from 'react'
+import { useEffect, useState } from "react";
 import type { Pomodoro } from '../../types/Pomodoro';
 
 type CreatePomodoroModalProps={
     setIsCreateModalOpen:React.Dispatch<React.SetStateAction<boolean>>;
     onCreatePomodoro: (pomodoro: Pomodoro) => void;
+    editingPomodoro: Pomodoro | null;
 }
 
-export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomodoro}: CreatePomodoroModalProps) {
+export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomodoro, editingPomodoro}: CreatePomodoroModalProps) {
 
     const [title, setTitle] = useState("");
     const [workTime, setWorkTime] = useState(25);
@@ -43,6 +44,15 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
         setLongBreakTime(15);
         setTargetPomodoros(4);
     }
+    useEffect(() => {
+    if (!editingPomodoro) return;
+
+    setTitle(editingPomodoro.title);
+    setWorkTime(editingPomodoro.workTime);
+    setBreakTime(editingPomodoro.breakTime);
+    setLongBreakTime(editingPomodoro.longBreakTime);
+    setTargetPomodoros(editingPomodoro.targetPomodoros);
+    }, [editingPomodoro]);
 
     return (
         <div className="modalOverlay">

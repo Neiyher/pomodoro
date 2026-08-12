@@ -11,10 +11,10 @@ type SidebarPorps = {
     onDeletePomodoro: (id: number) => void;
     isEditMode: boolean;
     setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
-    setEditingPomodoro: React.Dispatch<React.SetStateAction<Pomodoro | null>>
+    onEditPomodoro: (pomodoro: Pomodoro) => void;
 }
 
-export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalOpen, onDeletePomodoro, setIsEditMode, isEditMode, setEditingPomodoro}:SidebarPorps){
+export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalOpen, onDeletePomodoro, setIsEditMode, isEditMode, onEditPomodoro}:SidebarPorps){
 
     return(
         <div className="sidebarContainer">
@@ -30,6 +30,7 @@ export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalO
                     onSelect={setSelectedPomodoro}
                     onDeletePomodoro={onDeletePomodoro}
                     isEditMode={isEditMode}
+                    onEditPomodoro={onEditPomodoro}
                 />
                 ))}
             </div>

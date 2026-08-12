@@ -5,11 +5,11 @@ type PomoCardProps = {
     onSelect: (pomodoro: Pomodoro) => void;
     onDeletePomodoro: (id: number) => void;
     isEditMode: boolean;
-    setEditingPomodoro: React.Dispatch<React.SetStateAction<Pomodoro | null>>
+    onEditPomodoro: (pomodoro: Pomodoro) => void;
 }
 
 
-export default function PomodoroCard({ pomodoro, onSelect, onDeletePomodoro, isEditMode, setEditingPomodoro }: PomoCardProps) {
+export default function PomodoroCard({ pomodoro, onSelect, onDeletePomodoro, isEditMode, onEditPomodoro}: PomoCardProps) {
 
     const minutes = Math.floor(pomodoro.workTime / 60);
 
@@ -19,7 +19,7 @@ export default function PomodoroCard({ pomodoro, onSelect, onDeletePomodoro, isE
             <p>{minutes} min</p>
             {isEditMode && (
                 <div>
-                    <button onClick={() => setEditingPomodoro(pomodoro)}>✏️</button>
+                    <button onClick={() => onEditPomodoro(pomodoro)}>✏️</button>
                     <button onClick={() => onDeletePomodoro(pomodoro.id)}>🗑️</button>
                 </div>
             )}   
