@@ -41,13 +41,6 @@ function App() {
     localStorage.setItem("pomodoros",datos)
   }, [pomodoros]);
 
-  /* function handleDeletePomodoro(id: number) {
-    console.log("elimnando")
-    const nuevosPomodoros = pomodoros.filter(
-    pomo => pomo.id !== id);
-    setPomodoros(nuevosPomodoros)
-  } */
-
   function handleDeletePomodoro(id: number) {
     const nuevosPomodoros = pomodoros.filter(
         pomo => pomo.id !== id
@@ -68,6 +61,18 @@ function App() {
     setEditingPomodoro(pomodoro);
     setIsCreateModalOpen(true);
   }
+  function handleCloseModal() {
+    setIsCreateModalOpen(false);
+    setEditingPomodoro(null);
+  }
+  function handleUpdatePomodoro(updatedPomodoro: Pomodoro) {
+    setPomodoros(prev => prev.map(pomo =>
+          pomo.id === updatedPomodoro.id
+            ? updatedPomodoro
+            : pomo
+        )
+    );
+  }
 
   return (
     <div className='app'>
@@ -86,9 +91,10 @@ function App() {
 
         {isCreateModalOpen && (
           <CreatePomodoroModal
-          setIsCreateModalOpen={setIsCreateModalOpen}
+          onClose={handleCloseModal}
           onCreatePomodoro={handleCreatePomodoro}
-          editingPomodoro={editingPomodoro}/>
+          editingPomodoro={editingPomodoro}
+          onUpdatePomodoro={handleUpdatePomodoro}/>
         )}
       </main>  
     </div>

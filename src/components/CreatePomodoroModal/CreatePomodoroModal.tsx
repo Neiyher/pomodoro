@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import type { Pomodoro } from '../../types/Pomodoro';
 
 type CreatePomodoroModalProps={
-    setIsCreateModalOpen:React.Dispatch<React.SetStateAction<boolean>>;
+    onClose: () => void;
     onCreatePomodoro: (pomodoro: Pomodoro) => void;
     editingPomodoro: Pomodoro | null;
+    onUpdatePomodoro: (pomodoro: Pomodoro) => void;
 }
 
-export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomodoro, editingPomodoro}: CreatePomodoroModalProps) {
+export default function CreatePomodoroModal({onClose, onCreatePomodoro, editingPomodoro, onUpdatePomodoro}: CreatePomodoroModalProps) {
 
     const [title, setTitle] = useState("");
     const [workTime, setWorkTime] = useState(25);
@@ -17,15 +18,22 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
     const [targetPomodoros, setTargetPomodoros] = useState(4);
     const isTitleValid = title.trim() !== "";
     function handleClose() {
-        setIsCreateModalOpen(false);
+        onClose();
     }
     function save(){
-        console.log({
-            title,
-            workTime,
-            breakTime,
-            longBreakTime,
-        });
+        if (editingPomodoro) {
+            const updatedPomodoro = {
+                ...editingPomodoro,
+                title,
+                workTime,
+                breakTime,
+                longBreakTime,
+                targetPomodoros
+            };
+            onUpdatePomodoro(updatedPomodoro);
+            onClose();
+            return;
+        }
         const newPomodoro = {
             id:Date.now(),
             title:title,
@@ -37,7 +45,7 @@ export default function CreatePomodoroModal({setIsCreateModalOpen, onCreatePomod
             targetPomodoros:targetPomodoros
         }
         onCreatePomodoro(newPomodoro);
-        setIsCreateModalOpen(false);
+        onClose();
         setTitle("");
         setWorkTime(25);
         setBreakTime(5);
