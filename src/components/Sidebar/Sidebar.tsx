@@ -19,7 +19,7 @@ export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalO
     return(
         <div className="sidebarContainer">
             <h2 className="sidebarTitle">
-                🍅 Mis Pomodoros
+                My Quest
             </h2>
 
             <div className="sidebarList">

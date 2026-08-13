@@ -48,3 +48,9 @@
     .header__settingsButton:hover {
     background: rgba(56, 189, 248, .12);
 }
+.headerBox{
+    display: flex;
+}
+.icon{
+    width: 64px;
+}

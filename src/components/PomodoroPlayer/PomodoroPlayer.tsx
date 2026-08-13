@@ -24,6 +24,10 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
     const [completedPomodoros, setCompletedPomodoros] = useState(0);
     const [sessionFinished, setSessionFinished] = useState(false);
 
+    const workMinutes = pomodoro.workTime / 60;
+    const breakMinutes = pomodoro.breakTime / 60;
+    const longBreakMinutes = pomodoro.longBreakTime / 60;
+
     function onToggle(){
         setIsRunning(prev => !prev)
     }
@@ -168,16 +172,24 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
                     )
                     }
                 </div>
+            </main>
+            <footer className="playerFooter">
+                <span>Trabajo: {workMinutes} min</span>
+
+                {breakMinutes > 0 && (
+                    <span>Descanso: {breakMinutes} min</span>
+                )}
+
+                {longBreakMinutes > 0 && (
+                    <span>Descanso largo: {longBreakMinutes} min</span>
+                )}
                 <div className="playerProgress">
                     {pomodoro.targetPomodoros === 0
                         ? "Temporizador simple"
-                        : `${completedPomodoros}/${pomodoro.targetPomodoros}`
+                        : `Progreso: ${completedPomodoros}/${pomodoro.targetPomodoros}`
                     }
                 </div>
-                <button onClick={() => playSound(sessionComplete)}>
-                    Probar sonido
-                </button>
-            </main>
+            </footer>
         </div>    
     )
 }
