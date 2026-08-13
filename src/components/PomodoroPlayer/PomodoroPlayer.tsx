@@ -1,3 +1,5 @@
+import sessionComplete from "../../assets/sounds/session-complete.mp3";
+import pomodoroComplete from "../../assets/sounds/pomodoro-complete.mp3";
 import "./PomodoroPlayer.css"
 import { useState, useEffect } from 'react'
 import type { Pomodoro } from "../../types/Pomodoro";
@@ -33,59 +35,76 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
         setCompletedPomodoros(0)
         setSessionFinished(false)
     }
+    function playSound(sound: string) {
+    console.log("Intentando reproducir:", sound);
 
+    const audio = new Audio(sound);
+
+    audio.play()
+        .then(() => {
+            console.log("🔊 Audio reproduciéndose");
+        })
+        .catch((error) => {
+            console.error("❌ Error reproduciendo audio:", error);
+        });
+}
     /* Cuando el pomodoro llega a cero esta funcion se activa. */
     function handleSessionEnd() {
-        setIsRunning(false);
-        console.log("🔔 Suena la alarma 🔔");
+    setIsRunning(false);
 
-        if (mode === "work") {
+    if (mode === "work") {
 
-            // Temporizador simple
-            if (pomodoro.targetPomodoros === 0) {
-                console.log("✅ Temporizador completado");
-                setSessionFinished(true);
-                return;
-            }
+        // Temporizador simple
+        if (pomodoro.targetPomodoros === 0) {
+            playSound(pomodoroComplete);
+            setSessionFinished(true);
+            return;
+        }
 
-            const nextPomodoros = completedPomodoros + 1;
-            setCompletedPomodoros(nextPomodoros);
+        const nextPomodoros = completedPomodoros + 1;
+        setCompletedPomodoros(nextPomodoros);
 
-            // ¿Se completó la cantidad de sesiones?
-            if (nextPomodoros === pomodoro.targetPomodoros) {
+        // ¿Se completó la cantidad de sesiones?
+        if (nextPomodoros === pomodoro.targetPomodoros) {
 
-                // ¿Existe descanso largo?
-                if (pomodoro.longBreakTime > 0) {
-                    setMode("longBreak");
-                    setTimeLeft(pomodoro.longBreakTime);
-                } else {
-                    console.log("✅ Sesión completada");
-                    setSessionFinished(true);
-                }
-
-                return;
-            }
-
-            // Todavía faltan sesiones
-            if (pomodoro.breakTime > 0) {
-                setMode("break");
-                setTimeLeft(pomodoro.breakTime);
+            // ¿Existe descanso largo?
+            if (pomodoro.longBreakTime > 0) {
+                playSound(sessionComplete);
+                setMode("longBreak");
+                setTimeLeft(pomodoro.longBreakTime);
             } else {
-                setMode("work");
-                setTimeLeft(pomodoro.workTime);
+                playSound(pomodoroComplete);
+                setSessionFinished(true);
             }
 
-        } else if (mode === "break") {
+            return;
+        }
 
+        // Todavía faltan sesiones
+        playSound(sessionComplete);
+
+        if (pomodoro.breakTime > 0) {
+            setMode("break");
+            setTimeLeft(pomodoro.breakTime);
+        } else {
             setMode("work");
             setTimeLeft(pomodoro.workTime);
-
-        } else if (mode === "longBreak") {
-
-            console.log("✅ Sesión completada");
-            setSessionFinished(true);
         }
+
+    } else if (mode === "break") {
+
+        // Terminó el descanso corto
+        playSound(sessionComplete);
+        setMode("work");
+        setTimeLeft(pomodoro.workTime);
+
+    } else if (mode === "longBreak") {
+
+        // Terminó el descanso largo
+        playSound(pomodoroComplete);
+        setSessionFinished(true);
     }
+}
     /* Este useEffect verifica cuando se cambia de pomodoro. */
     useEffect(() => {
         setMode("work")
@@ -155,6 +174,9 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
                         : `${completedPomodoros}/${pomodoro.targetPomodoros}`
                     }
                 </div>
+                <button onClick={() => playSound(sessionComplete)}>
+                    Probar sonido
+                </button>
             </main>
         </div>    
     )
