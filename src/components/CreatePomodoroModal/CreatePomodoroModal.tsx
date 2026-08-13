@@ -18,6 +18,7 @@ export default function CreatePomodoroModal({onClose, onCreatePomodoro, editingP
     const [targetPomodoros, setTargetPomodoros] = useState(4);
     const isTitleValid = title.trim() !== "";
     function handleClose() {
+        resetForm();
         onClose();
     }
     function save(){
@@ -25,47 +26,52 @@ export default function CreatePomodoroModal({onClose, onCreatePomodoro, editingP
             const updatedPomodoro = {
                 ...editingPomodoro,
                 title,
-                workTime,
-                breakTime,
-                longBreakTime,
+                workTime: workTime * 60,
+                breakTime: breakTime * 60,
+                longBreakTime: longBreakTime * 60,
                 targetPomodoros
             };
             onUpdatePomodoro(updatedPomodoro);
+            resetForm();
             onClose();
             return;
         }
         const newPomodoro = {
             id:Date.now(),
             title:title,
-            workTime:workTime,
-            breakTime:breakTime,
-            longBreakTime:longBreakTime,
+            workTime:workTime*60,
+            breakTime:breakTime*60,
+            longBreakTime:longBreakTime*60,
             completedPomodoros:0,
             check: false,
             targetPomodoros:targetPomodoros
         }
         onCreatePomodoro(newPomodoro);
+        resetForm();
         onClose();
-        setTitle("");
-        setWorkTime(25);
-        setBreakTime(5);
-        setLongBreakTime(15);
-        setTargetPomodoros(4);
     }
     useEffect(() => {
     if (!editingPomodoro) return;
 
     setTitle(editingPomodoro.title);
-    setWorkTime(editingPomodoro.workTime);
-    setBreakTime(editingPomodoro.breakTime);
-    setLongBreakTime(editingPomodoro.longBreakTime);
+    setWorkTime(editingPomodoro.workTime/60);
+    setBreakTime(editingPomodoro.breakTime/60);
+    setLongBreakTime(editingPomodoro.longBreakTime/60);
     setTargetPomodoros(editingPomodoro.targetPomodoros);
     }, [editingPomodoro]);
+
+    function resetForm() {
+    setTitle("");
+    setWorkTime(25);
+    setBreakTime(5);
+    setLongBreakTime(15);
+    setTargetPomodoros(4);
+    }
 
     return (
         <div className="modalOverlay">
             <div className='modal'>
-                <h2>Crear Pomodoro</h2>
+                <h2>{editingPomodoro ? "Editar Pomodoro" : "Crear Pomodoro"}</h2>
                 <div className="formGroup">
                     <label htmlFor="title">Título</label>
                     <input 
@@ -82,7 +88,7 @@ export default function CreatePomodoroModal({onClose, onCreatePomodoro, editingP
                         <input 
                             id="workTime"
                             type="number"
-                            min={0}
+                            min={1}
                             value={workTime}
                             onChange={(e) => setWorkTime(Number(e.target.value))}/>
                     </div>
@@ -118,7 +124,7 @@ export default function CreatePomodoroModal({onClose, onCreatePomodoro, editingP
                 <div className="modalActions">
                     <button onClick={handleClose} className="button button--secondary">Cancelar</button>
 
-                    <button onClick={save} className="button button--primary" disabled={!isTitleValid}>Guardar</button>
+                    <button onClick={save} className="button button--primary" disabled={!isTitleValid}>{editingPomodoro ? "Guardar cambios" : "Guardar"}</button>
                 </div>
             </div>
         </div> 

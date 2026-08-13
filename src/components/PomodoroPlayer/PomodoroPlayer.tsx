@@ -36,52 +36,56 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
 
     /* Cuando el pomodoro llega a cero esta funcion se activa. */
     function handleSessionEnd() {
-    setIsRunning(false);
-    console.log("🔔 Suena la alarma 🔔");
+        setIsRunning(false);
+        console.log("🔔 Suena la alarma 🔔");
 
-    if (mode === "work") {
-        const nextPomodoros = completedPomodoros + 1;
-        setCompletedPomodoros(nextPomodoros);
+        if (mode === "work") {
 
-        // ¿Se completó la cantidad de sesiones?
-        if (nextPomodoros === pomodoro.targetPomodoros) {
-
-            // ¿Existe descanso largo?
-            if (pomodoro.longBreakTime > 0) {
-                setMode("longBreak");
-                setTimeLeft(pomodoro.longBreakTime);
-            } else {
-                console.log("✅ Sesión completada");
-                // Aquí más adelante marcaremos el pomodoro como check = true
-                setSessionFinished(true)
+            // Temporizador simple
+            if (pomodoro.targetPomodoros === 0) {
+                console.log("✅ Temporizador completado");
+                setSessionFinished(true);
+                return;
             }
 
-            return;
-        }
+            const nextPomodoros = completedPomodoros + 1;
+            setCompletedPomodoros(nextPomodoros);
 
-        // Todavía faltan sesiones
-        if (pomodoro.breakTime > 0) {
-            setMode("break");
-            setTimeLeft(pomodoro.breakTime);
-        } else {
-            // No hay descanso, continúa inmediatamente
+            // ¿Se completó la cantidad de sesiones?
+            if (nextPomodoros === pomodoro.targetPomodoros) {
+
+                // ¿Existe descanso largo?
+                if (pomodoro.longBreakTime > 0) {
+                    setMode("longBreak");
+                    setTimeLeft(pomodoro.longBreakTime);
+                } else {
+                    console.log("✅ Sesión completada");
+                    setSessionFinished(true);
+                }
+
+                return;
+            }
+
+            // Todavía faltan sesiones
+            if (pomodoro.breakTime > 0) {
+                setMode("break");
+                setTimeLeft(pomodoro.breakTime);
+            } else {
+                setMode("work");
+                setTimeLeft(pomodoro.workTime);
+            }
+
+        } else if (mode === "break") {
+
             setMode("work");
             setTimeLeft(pomodoro.workTime);
+
+        } else if (mode === "longBreak") {
+
+            console.log("✅ Sesión completada");
+            setSessionFinished(true);
         }
-
-    } else if (mode === "break") {
-
-        // Después del descanso corto siempre vuelve al trabajo
-        setMode("work");
-        setTimeLeft(pomodoro.workTime);
-
-    } else if (mode === "longBreak") {
-
-        console.log("✅ Sesión completada");
-        // Aquí también podremos marcar check = true
-        setSessionFinished(true)
     }
-}
     /* Este useEffect verifica cuando se cambia de pomodoro. */
     useEffect(() => {
         setMode("work")
@@ -109,10 +113,10 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
 
     /* Este useEffect es el que verifica cuando el temporizador llega a cero. */
     useEffect(() => {
-        if (timeLeft>0) return;
+    if (timeLeft > 0 || sessionFinished) return;
 
-        handleSessionEnd();
-    }, [timeLeft]);
+    handleSessionEnd();
+}, [timeLeft, sessionFinished]);
 
     return(
         <div className='pomoPlayer'>
@@ -146,7 +150,10 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
                     }
                 </div>
                 <div className="playerProgress">
-                    {completedPomodoros}/{pomodoro.targetPomodoros}
+                    {pomodoro.targetPomodoros === 0
+                        ? "Temporizador simple"
+                        : `${completedPomodoros}/${pomodoro.targetPomodoros}`
+                    }
                 </div>
             </main>
         </div>    

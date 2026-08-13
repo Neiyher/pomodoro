@@ -10,6 +10,16 @@ import CreatePomodoroModal from './components/CreatePomodoroModal/CreatePomodoro
 
 import type { Pomodoro } from './types/Pomodoro'
 
+const defaultPomodoro: Pomodoro = {
+    id: Date.now(),
+    title: "Pomodoro clásico",
+    workTime: 25 * 60,
+    breakTime: 5 * 60,
+    longBreakTime: 15 * 60,
+    completedPomodoros: 0,
+    check: false,
+    targetPomodoros: 4
+};
 
 function App() {
 
@@ -21,16 +31,6 @@ function App() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false)
   const [editingPomodoro, setEditingPomodoro] = useState<Pomodoro | null>(null);
-  const defaultPomodoro: Pomodoro = {
-    id: Date.now(),
-    title: "Pomodoro clásico",
-    workTime: 25,
-    breakTime: 5,
-    longBreakTime: 15,
-    completedPomodoros: 0,
-    check: false,
-    targetPomodoros: 4
-}
 
   function handleCreatePomodoro(newPomodoro: Pomodoro) {
     setPomodoros((prev) => [...prev, newPomodoro]);
