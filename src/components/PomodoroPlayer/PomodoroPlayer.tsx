@@ -24,9 +24,9 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
     const [completedPomodoros, setCompletedPomodoros] = useState(0);
     const [sessionFinished, setSessionFinished] = useState(false);
 
-    const workMinutes = pomodoro.workTime / 60;
-    const breakMinutes = pomodoro.breakTime / 60;
-    const longBreakMinutes = pomodoro.longBreakTime / 60;
+    const workMinutes = Math.floor(pomodoro.workTime / 60);
+    const breakMinutes = Math.floor(pomodoro.breakTime / 60);
+    const longBreakMinutes = Math.floor(pomodoro.longBreakTime / 60);
 
     function onToggle(){
         setIsRunning(prev => !prev)
@@ -174,22 +174,31 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
                 </div>
             </main>
             <footer className="playerFooter">
-                <span>Trabajo: {workMinutes} min</span>
 
-                {breakMinutes > 0 && (
-                    <span>Descanso: {breakMinutes} min</span>
-                )}
+    <span className={mode === "work" ? "sessionInfo active" : "sessionInfo"}>
+        Trabajo: {workMinutes} min
+    </span>
 
-                {longBreakMinutes > 0 && (
-                    <span>Descanso largo: {longBreakMinutes} min</span>
-                )}
-                <div className="playerProgress">
-                    {pomodoro.targetPomodoros === 0
-                        ? "Temporizador simple"
-                        : `Progreso: ${completedPomodoros}/${pomodoro.targetPomodoros}`
-                    }
-                </div>
-            </footer>
+    {breakMinutes > 0 && (
+        <span className={mode === "break" ? "sessionInfo active" : "sessionInfo"}>
+            Descanso: {breakMinutes} min
+        </span>
+    )}
+
+    {longBreakMinutes > 0 && (
+        <span className={mode === "longBreak" ? "sessionInfo active" : "sessionInfo"}>
+            Descanso largo: {longBreakMinutes} min
+        </span>
+    )}
+
+    <div className="playerProgress">
+        {pomodoro.targetPomodoros === 0
+            ? "Temporizador simple"
+            : `Progreso: ${completedPomodoros}/${pomodoro.targetPomodoros}`
+        }
+    </div>
+
+</footer>
         </div>    
     )
 }

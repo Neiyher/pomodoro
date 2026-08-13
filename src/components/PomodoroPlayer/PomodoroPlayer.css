@@ -51,8 +51,54 @@
 
     align-items: center;
 }
-.playerProgress {
-    font-size: .95rem;
+.playerFooter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    width: 100%;
+
+    padding: 1rem 0;
+
+    margin-top: 2rem;
+
+    border-top: 1px solid var(--color-border);
 
     color: var(--color-text-light);
+    font-size: 0.85rem;
+}
+
+.playerFooter span {
+    white-space: nowrap;
+}
+
+.playerProgress {
+    padding-left: 2rem;
+
+    border-left: 1px solid var(--color-border);
+
+    color: var(--color-primary);
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+.sessionInfo {
+    padding: 0.5rem 0.75rem;
+
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+
+    color: var(--color-text-light);
+
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease;
+}
+.sessionInfo.active {
+    border-color: var(--color-primary);
+    background-color: rgba(56, 189, 248, 0.1);
+
+    color: var(--color-primary);
 }
