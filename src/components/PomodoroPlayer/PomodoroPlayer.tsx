@@ -148,9 +148,9 @@ export default function PomodoroPlayer({pomodoro}:PomodoroPlayerPorps){
                 <ButtonReboot handleReset={handleReset}/>
             </header>
             <main className="playerContent">
-                <Timer timeLeft={timeLeft}/>
-                <div>
-                {mode}
+                <div className="timerContainer">
+                    <span>{mode}</span>
+                    <Timer timeLeft={timeLeft}/>
                 </div>
                 <div className="playerGif">
                     {

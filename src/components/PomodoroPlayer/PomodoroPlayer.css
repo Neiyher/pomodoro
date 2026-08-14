@@ -102,3 +102,30 @@
 
     color: var(--color-primary);
 }
+.timerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.4rem;
+}
+
+.timerContainer span {
+    padding: 0.3rem 0.8rem;
+
+    border-radius: 999px;
+
+    background: rgba(56, 189, 248, 0.08);
+
+    border: 1px solid rgba(56, 189, 248, 0.15);
+
+    color: var(--color-text-light);
+
+    font-family: var(--heading);
+    font-size: 0.75rem;
+    font-weight: 500;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}

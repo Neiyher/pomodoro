@@ -122,3 +122,21 @@
 
     background-color: rgba(56, 189, 248, 0.08);
 }
+/* ////////////////// */
+.pomoCard--selected {
+    border-color: var(--color-primary);
+
+    background: rgba(56, 189, 248, 0.08);
+
+    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.08);
+}
+.pomoCard--selected h2 {
+    color: var(--color-primary);
+}
+
+.pomoCard--selected p {
+    color: var(--color-text);
+}
+.pomoCard--selected:hover {
+    background: rgba(56, 189, 248, 0.12);
+}

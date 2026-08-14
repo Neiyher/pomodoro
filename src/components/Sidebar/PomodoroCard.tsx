@@ -3,6 +3,7 @@ import type { Pomodoro } from "../../types/Pomodoro";
 type PomoCardProps = {
     pomodoro: Pomodoro
     onSelect: (pomodoro: Pomodoro) => void;
+    isSelected: boolean;
     onDeletePomodoro: (id: number) => void;
     isEditMode: boolean;
     onEditPomodoro: (pomodoro: Pomodoro) => void;
@@ -12,6 +13,7 @@ type PomoCardProps = {
 export default function PomodoroCard({
     pomodoro,
     onSelect,
+    isSelected,
     onDeletePomodoro,
     isEditMode,
     onEditPomodoro
@@ -21,7 +23,7 @@ export default function PomodoroCard({
 
     return (
         <div
-            className="pomoCard"
+            className={`pomoCard ${isSelected ? "pomoCard--selected" : ""}`}
             onClick={() => onSelect(pomodoro)}
         >
             <h2>{pomodoro.title}</h2>

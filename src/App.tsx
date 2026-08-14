@@ -81,6 +81,7 @@ function App() {
         <Sidebar 
           pomodoros={pomodoros}
           setSelectedPomodoro={setSelectedPomodoro}
+          selectedPomodoro={selectedPomodoro}
           setIsCreateModalOpen={setIsCreateModalOpen}
           onDeletePomodoro={handleDeletePomodoro}
           isEditMode={isEditMode}
