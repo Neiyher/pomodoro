@@ -9,20 +9,35 @@ type PomoCardProps = {
 }
 
 
-export default function PomodoroCard({ pomodoro, onSelect, onDeletePomodoro, isEditMode, onEditPomodoro}: PomoCardProps) {
+export default function PomodoroCard({
+    pomodoro,
+    onSelect,
+    onDeletePomodoro,
+    isEditMode,
+    onEditPomodoro
+}: PomoCardProps) {
 
     const minutes = Math.floor(pomodoro.workTime / 60);
 
     return (
-        <div className="pomoCard" onClick={() => onSelect(pomodoro)}>
+        <div
+            className="pomoCard"
+            onClick={() => onSelect(pomodoro)}
+        >
             <h2>{pomodoro.title}</h2>
             <p>{minutes} min</p>
+
             {isEditMode && (
-                <div>
-                    <button onClick={() => onEditPomodoro(pomodoro)}>✏️</button>
-                    <button onClick={() => onDeletePomodoro(pomodoro.id)}>🗑️</button>
+                <div className="buttonContainer">
+                    <button onClick={(event) => {event.stopPropagation(); onDeletePomodoro(pomodoro.id);}}>
+                        ×
+                    </button>
+                    <button
+                        onClick={(event) => {event.stopPropagation(); onEditPomodoro(pomodoro);}}>
+                        ✎
+                    </button>
                 </div>
-            )}   
+            )}
         </div>
     );
 }

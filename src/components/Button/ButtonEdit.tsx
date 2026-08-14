@@ -1,3 +1,5 @@
+import "./Button.css"
+
 type ButtonEditProps = {
     setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -9,8 +11,8 @@ export default function ButtonEdit({ setIsEditMode }: ButtonEditProps) {
     }
 
     return (
-        <button onClick={handleEditMode}>
-            Editar
+        <button onClick={handleEditMode} className="buttonEditMode">
+            ⋮
         </button>
     );
 }

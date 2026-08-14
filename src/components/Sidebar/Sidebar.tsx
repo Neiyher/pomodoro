@@ -18,9 +18,11 @@ export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalO
 
     return(
         <div className="sidebarContainer">
-            <h2 className="sidebarTitle">
-                My Quest
-            </h2>
+            <div className="sidebarHeader">
+                <h2 className="sidebarTitle">My Quest</h2>
+                <ButtonEdit setIsEditMode={setIsEditMode}/>
+            </div>
+            
 
             <div className="sidebarList">
                 {pomodoros.map((pomo) => (
@@ -35,7 +37,7 @@ export default function Sidebar({pomodoros,setSelectedPomodoro,setIsCreateModalO
                 ))}
             </div>
             <ButtonCreate setIsCreateModalOpen={setIsCreateModalOpen}/>
-            <ButtonEdit setIsEditMode={setIsEditMode}/>
+            
         </div>
     )
 }
