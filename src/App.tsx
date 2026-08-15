@@ -31,6 +31,7 @@ function App() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false)
   const [editingPomodoro, setEditingPomodoro] = useState<Pomodoro | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   function handleCreatePomodoro(newPomodoro: Pomodoro) {
     setPomodoros((prev) => [...prev, newPomodoro]);
@@ -76,7 +77,8 @@ function App() {
 
   return (
     <div className='app'>
-      <Header/>
+      <Header
+      setIsSidebarOpen={setIsSidebarOpen}/>
       <main className='appContainer'>
         <Sidebar 
           pomodoros={pomodoros}
@@ -86,7 +88,8 @@ function App() {
           onDeletePomodoro={handleDeletePomodoro}
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
-          onEditPomodoro={handleEditPomodoro}/>   
+          onEditPomodoro={handleEditPomodoro}
+          isSidebarOpen={isSidebarOpen}/>   
         <PomodoroPlayer
           pomodoro={selectedPomodoro}/>
 

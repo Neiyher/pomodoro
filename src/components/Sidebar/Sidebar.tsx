@@ -13,12 +13,13 @@ type SidebarPorps = {
     isEditMode: boolean;
     setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
     onEditPomodoro: (pomodoro: Pomodoro) => void;
+    isSidebarOpen: boolean;
 }
 
-export default function Sidebar({pomodoros,setSelectedPomodoro,selectedPomodoro,setIsCreateModalOpen, onDeletePomodoro, setIsEditMode, isEditMode, onEditPomodoro}:SidebarPorps){
+export default function Sidebar({pomodoros,setSelectedPomodoro,selectedPomodoro,setIsCreateModalOpen, onDeletePomodoro, setIsEditMode, isEditMode, onEditPomodoro, isSidebarOpen}:SidebarPorps){
 
     return(
-        <div className="sidebarContainer">
+        <div className={`sidebarContainer ${isSidebarOpen ? "open" : ""}`}>
             <div className="sidebarHeader">
                 <h2 className="sidebarTitle">My Quest</h2>
                 <ButtonEdit setIsEditMode={setIsEditMode}/>
