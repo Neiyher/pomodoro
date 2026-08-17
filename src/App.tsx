@@ -23,10 +23,19 @@ const defaultPomodoro: Pomodoro = {
 
 function App() {
 
-  const [pomodoros, setPomodoros] = useState<Pomodoro[]>(()=>{
+  const [pomodoros, setPomodoros] = useState<Pomodoro[]>(() => {
     const datos = localStorage.getItem("pomodoros");
-    return datos ? JSON.parse(datos) : initialPomodoros
-  });
+
+    if (!datos) {
+        return initialPomodoros;
+    }
+
+    const guardados: Pomodoro[] = JSON.parse(datos);
+
+    return guardados.length > 0
+        ? guardados
+        : [defaultPomodoro];
+});
   const [selectedPomodoro, setSelectedPomodoro] = useState<Pomodoro>(pomodoros[0]);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false)
@@ -67,13 +76,20 @@ function App() {
     setEditingPomodoro(null);
   }
   function handleUpdatePomodoro(updatedPomodoro: Pomodoro) {
-    setPomodoros(prev => prev.map(pomo =>
-          pomo.id === updatedPomodoro.id
-            ? updatedPomodoro
-            : pomo
+    setPomodoros(prev =>
+        prev.map(pomo =>
+            pomo.id === updatedPomodoro.id
+                ? updatedPomodoro
+                : pomo
         )
     );
-  }
+
+    setSelectedPomodoro(prev =>
+        prev.id === updatedPomodoro.id
+            ? updatedPomodoro
+            : prev
+    );
+}
 
   return (
     <div className='app'>
