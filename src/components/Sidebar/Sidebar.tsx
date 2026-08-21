@@ -39,8 +39,7 @@ export default function Sidebar({pomodoros,setSelectedPomodoro,selectedPomodoro,
                 />
                 ))}
             </div>
-            <ButtonCreate setIsCreateModalOpen={setIsCreateModalOpen}/>
-            
+            <ButtonCreate setIsCreateModalOpen={setIsCreateModalOpen}/>           
         </div>
     )
 }

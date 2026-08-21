@@ -110,6 +110,9 @@
     .sidebarContainer.open {
         transform: translateY(0);
     }
+    .sidebarContainer > button  {
+    margin-bottom: 4rem;
+    }
     .appContainer {
         grid-template-columns: 1fr;
         position: relative;
